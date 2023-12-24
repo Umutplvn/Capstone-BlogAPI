@@ -75,12 +75,11 @@ module.exports = {
 
     pushComment: async(req, res)=>{
 
-        const comments = req.body.comments
-        
-        
-        const data= await BlogPost.updateOne({_id:req.params.postId}, {$push:{comments: comments, blogId:req.params.postId}})
+        const comments = req.body
+                
+        const data= await BlogPost.updateOne({_id:req.params.postId}, {$push:{comment: comments}})
     
-        const newData=await BlogPost.findOne({_id:req.params.postId}).populate('comments')
+        const newData=await BlogPost.findOne({_id:req.params.postId}).populate('comment')
         
         res.status(202).send({
             error:false,

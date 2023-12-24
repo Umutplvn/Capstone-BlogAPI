@@ -26,28 +26,19 @@ const blogPostSchema= new mongoose.Schema({
     },
 
     category_name: {
-        type: mongoose.Schema.ObjectId, // Relational ObjectId
+        type: mongoose.Schema.Types.ObjectId, // Relational ObjectId
         ref: 'BlogCategory', // ModelName
         required: true,
     },
-
-    category: [{
-        type: Number, // Relational ObjectId
-        trim: true, // ModelName
-    }],
 
     status:{
         type:String,
         enum:['p', 'd']
     },
 
-    // comments:[{
-    //     type: mongoose.Schema.ObjectId,
-    //     ref: 'Comments',
-    // }],
-
-      comments:[{
-    
+    comment:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comments',
     }],
     
     likes_n:{type:Number}

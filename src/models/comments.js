@@ -8,9 +8,10 @@ const mongoose = require('mongoose')
 
 const commentsSchema= new mongoose.Schema({
    
-    comments:[{
-        type:String
-    }]
+    data:{
+        type:String,
+        trim:true
+    }
 
 },{collection:'comments', timestamps:{createdAt:'publish_date', updatedAt:'update_date'}})
 
