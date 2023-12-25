@@ -29,11 +29,9 @@ module.exports = {
 
     res.status(201).send({
         error:false,
-        userId:data._id,
         email:data.email,
         fistname:req.body.fistname,
         lastname:req.body.lastname,
-        Token: "Token " + data?.password+passwordEncrypt(new Date),
     });
   },
 
@@ -71,41 +69,5 @@ module.exports = {
         message: "There is no recording to be deleted.",
       });
     }
-  },
-
-  login: async (req, res) => {
-    const { email, password } = req.body;
-
-    if (email && password) {
-      // const user = await User.findOne({ email: email, password: passwordEncrypt(password) })
-      // No need passwordEncrypt, because using "set" in model:
-      const user = await User.findOne({ email: email, password: password });
-      if (user) {
-        // Set Session:
-        res.status(200).send({
-          user: {
-            error:false,
-            email: user.email,
-            userId: user._id,
-            Token: "Token " + user._id+passwordEncrypt(`${new Date}`),
-          },
-        });
-      } else {
-        res.errorStatusCode = 401;
-        throw new Error("Login parameters are not true.");
-      }
-    } else {
-      res.errorStatusCode = 400;
-      throw new Error("Email and Password are required.");
-    }
-  },
-
-  logout: async (req, res) => {
-
-    req.password = null;
-    res.status(200).send({
-      error: false,
-      message: "Logout OK",
-    });
   },
 };

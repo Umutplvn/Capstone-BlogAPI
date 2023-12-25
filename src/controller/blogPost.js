@@ -12,8 +12,7 @@ module.exports = {
 
     list: async (req, res) => {
 
-        const data = await BlogPost.find().populate('category_name') // get Primary Data
-
+        const data = await BlogPost.find().populate('category_name')
         res.status(200).send({
             error: false,
             count: data.length,
@@ -22,9 +21,12 @@ module.exports = {
     },
 
     create: async (req, res) => {
-        
-        const data = await BlogPost.create(req.body)
+        const body=req.body
+        const author=req.user
+        body.author=author
 
+        const data = await BlogPost.create(body)
+        
         res.status(201).send({
             error: false,
             body: req.body,
@@ -34,7 +36,9 @@ module.exports = {
 
     read: async (req, res) => {
 
-        const data = await BlogPost.findOne({ _id: req.params.postId }).populate('category_name') // get Primary Data
+        const data = await BlogPost.findOne({ _id: req.params.postId }).populate('category_name')
+        
+        // .populate('category_name') // get Primary Data
 
         res.status(200).send({
             error: false,

@@ -28,7 +28,7 @@ const blogPostSchema= new mongoose.Schema({
     category_name: {
         type: mongoose.Schema.Types.ObjectId, // Relational ObjectId
         ref: 'BlogCategory', // ModelName
-        required: true,
+        // required: true,
     },
 
     status:{
@@ -40,6 +40,11 @@ const blogPostSchema= new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Comments',
     }],
+
+    author:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    },
     
     likes_n:{type:Number}
 

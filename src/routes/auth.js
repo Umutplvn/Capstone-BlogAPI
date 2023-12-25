@@ -5,26 +5,16 @@
 
 const router = require('express').Router()
 
-const User = require('../controller/userController')
+const Auth = require('../controller/auth')
 
 // ------------------------------------------
 // User
 // ------------------------------------------
 
 // Login/logout:
-// router.post('/login', User.login)
-// router.all('/logout', User.logout)
 
+router.post('/login', Auth.login)
+router.get('/logout', Auth.logout)
+router.post('/logout', Auth.logout)
 
-router.route('/users')
-    .get(User.list)
-
-router.route('/register')
-    .post(User.create)
-
-router.route('/:userId')
-    .get(User.read)
-    .put(User.update)
-    .delete(User.delete)
-
-module.exports = router
+module.exports=router

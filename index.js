@@ -18,9 +18,12 @@ app.use(express.json())
 //! Connect to MongoDB with Mongoose:
 require('./src/dbConnection')
 /*--------------------------------------*/
+app.use(require('./src/middlewares/authorization'))
+/*--------------------------------------*/
 
 // Searching&Sorting&Pagination:
 app.use(require('./src/middlewares/findSearchSortPage'))
+
 
 /*--------------------------------------*/
 //! Home Page
@@ -36,6 +39,7 @@ app.get('/', (req, res)=>{
 //! Routes:
 app.use('/api', require('./src/routes/blogPost'))
 app.use('/api', require('./src/routes/blogcategory'))
+app.use('/users/auth', require('./src/routes/auth'))
 app.use('/users/auth', require('./src/routes/userRoute'))
 
 

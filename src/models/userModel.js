@@ -26,6 +26,25 @@ const UserSchema = new mongoose.Schema({
         set: (password) => passwordEncrypt(password)
     },
 
+    password: {
+        type: String,
+        trim: true,
+        // required: true,
+        set: (password) => passwordEncrypt(password)
+    },
+    image:{
+
+    },
+
+    bio:{
+
+    },
+
+    username: {
+        type: String,
+        trim: true,
+    },
+
     firstName: String,
 
     lastName: String,
