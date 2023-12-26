@@ -9,7 +9,7 @@ const authToken = req.headers?.authorization || null
 
 if(authToken){
     const tokenData=await TokenModel.findOne({token:authToken}).populate('userId')
-    req.user=tokenData
+    req.user=tokenData?.userId?._id
 }
 next()
 }

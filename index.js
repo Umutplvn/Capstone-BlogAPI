@@ -39,6 +39,8 @@ app.get('/', (req, res)=>{
 //! Routes:
 app.use('/api', require('./src/routes/blogPost'))
 app.use('/api', require('./src/routes/blogcategory'))
+app.use('/api', require('./src/routes/comments'))
+
 app.use('/users/auth', require('./src/routes/auth'))
 app.use('/users/auth', require('./src/routes/userRoute'))
 

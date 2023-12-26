@@ -29,7 +29,16 @@ const blogPostSchema= new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, // Relational ObjectId
         ref: 'BlogCategory', // ModelName
         // required: true,
-    },
+    }, 
+    
+    // category:{
+    //     type:String,
+    //     default:function(){
+    //        return this.category_name.name
+    //     }
+    // },
+
+    
 
     status:{
         type:String,

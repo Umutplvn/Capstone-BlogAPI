@@ -23,5 +23,7 @@ router.route('/blogs/:postId')
 router.route('/blogs/:postId/comment')
 .post(BlogPost.pushComment)
 
+router.route('/blogs/:postId/commentdelete')
+.post(BlogPost.pullComment)
 
 module.exports = router
