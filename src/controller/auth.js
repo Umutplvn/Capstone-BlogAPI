@@ -18,7 +18,6 @@ module.exports = {
         
         await Token.create({ userId: user._id, token: tokenData });
 
-        // Set Session:
         res.status(200).send({
           user: {
             error: false,

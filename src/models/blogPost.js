@@ -36,7 +36,7 @@ const blogPostSchema= new mongoose.Schema({
         enum:['p', 'd']
     },
 
-    comment:[{
+    comments:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Comments',
     }],

@@ -62,8 +62,9 @@ module.exports = {
 
     delete: async (req, res) => {
         
-        const data = await BlogCategory.deleteOne({ _id: req.params.categoryId })
-
+        const data = await BlogPost.deleteOne({ _id: req.params.postId })
+        console.log("data",data);
+        
         if((data.deletedCount >= 1)){
 
             res.send({
@@ -81,7 +82,7 @@ module.exports = {
 
         const comments = req.body
                 
-        const data= await BlogPost.updateOne({_id:req.params.postId}, {$push:{comment: comments}})
+        const data= await BlogPost.updateOne({_id:req.params.postId}, { $push: { comments: comments }})
     
         const newData=await BlogPost.findOne({_id:req.params.postId}).populate('comment')
         
