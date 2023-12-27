@@ -29,16 +29,7 @@ const blogPostSchema= new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, // Relational ObjectId
         ref: 'BlogCategory', // ModelName
         // required: true,
-    }, 
-    
-    // category:{
-    //     type:String,
-    //     default:function(){
-    //        return this.category_name.name
-    //     }
-    // },
-
-    
+    },  
 
     status:{
         type:String,
@@ -55,7 +46,10 @@ const blogPostSchema= new mongoose.Schema({
         ref:"User"
     },
     
-    likes_n:{type:Number}
+    likes:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Likes"
+    }]
 
 
 },{collection:'blogPost', timestamps:{createdAt:'publish_date', updatedAt:'update_date'}})

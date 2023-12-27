@@ -17,7 +17,6 @@ const commentsSchema= new mongoose.Schema({
     author:{
         type:String,
         trim:true,
-        // required:true
     }
 
 },{collection:'comments', timestamps:{createdAt:'publish_date', updatedAt:'update_date'}})

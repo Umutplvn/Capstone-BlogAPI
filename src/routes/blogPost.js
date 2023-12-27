@@ -27,4 +27,7 @@ router.route('/blogs/:postId/comment')
 router.route('/blogs/:postId/commentdelete')
 .post(permission.isBlogOwner, BlogPost.pullComment)
 
+router.route('/blogs/:postId/like')
+.post(permission.isLogin, BlogPost.createLike)
+
 module.exports = router

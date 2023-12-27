@@ -8,13 +8,15 @@ BLOG APP
 const BlogPost = require("../models/blogPost");
 const Comments = require("../models/comments");
 const User = require("../models/userModel");
+const Likes = require("../models/likes");
 
 module.exports = {
   list: async (req, res) => {
     const data = await BlogPost.find()
       .populate("category_name")
       .populate("comments")
-      .populate("author");
+      .populate("author")
+      .populate("likes");
     res.status(200).send({
       error: false,
       count: data.length,
@@ -40,7 +42,9 @@ module.exports = {
     const data = await BlogPost.findOne({ _id: req.params.postId })
       .populate("category_name")
       .populate("comments")
-      .populate("author");;
+      .populate("author")
+      .populate("likes");
+    
 
     res.status(200).send({
       error: false,
@@ -128,4 +132,46 @@ module.exports = {
       message,
     });
   },
+
+
+  createLike: async (req, res) => {
+
+
+  const data = await BlogPost.findOne({ _id: req.params.postId }).populate(
+      "likes"
+    );  
+  const check= (data.likes).map(item=>item.owner==req.user)
+   let newData=undefined
+    let message=undefined
+
+    if( !check.includes(true)){
+      const body = req.body;
+      body.owner = req.user;
+      const like = await Likes.create(req.body);
+      newData = await BlogPost.updateOne({ _id: req.params.postId },{ $push: { likes: like._id } });
+        console.log("like");
+        message="Liked"
+    }
+    else{
+      const obj=(data.likes).find(item=>item.owner=(req.user))
+      const del= obj._id
+
+      newData = await BlogPost.updateOne({ _id: req.params.postId },{ $pull: { likes: del } });
+
+      const newLikes= await Likes.deleteOne({_id:del})
+
+      message="Disliked"
+    }
+
+    const result = await BlogPost.findOne({ _id: req.params.postId });
+    
+      res.status(202).send({
+        error: false,
+        new: result,
+        message
+      });
+    },
+
+
+
 };
