@@ -6,6 +6,7 @@ BLOG APP
 
 
 const router = require('express').Router()
+const permission =require('../middlewares/permissions')
 
 //! Call controller
 
@@ -13,17 +14,17 @@ const router = require('express').Router()
 
 router.route('/blogs')
 .get(BlogPost.list)
-.post(BlogPost.create)
+.post(permission.isLogin, BlogPost.create)
 
 router.route('/blogs/:postId')
-.get(BlogPost.read)
-.put(BlogPost.update)
-.delete(BlogPost.delete)
+.get(permission.isLogin, BlogPost.read)
+.put(permission.isBlogOwner, BlogPost.update)
+.delete(permission.isBlogOwner, BlogPost.delete)
 
 router.route('/blogs/:postId/comment')
-.post(BlogPost.pushComment)
+.post(permission.isLogin, BlogPost.pushComment)
 
 router.route('/blogs/:postId/commentdelete')
-.post(BlogPost.pullComment)
+.post(permission.isBlogOwner, BlogPost.pullComment)
 
 module.exports = router

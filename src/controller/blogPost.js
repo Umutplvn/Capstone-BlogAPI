@@ -13,7 +13,8 @@ module.exports = {
   list: async (req, res) => {
     const data = await BlogPost.find()
       .populate("category_name")
-      .populate("comments");
+      .populate("comments")
+      .populate("author");
     res.status(200).send({
       error: false,
       count: data.length,
@@ -38,7 +39,8 @@ module.exports = {
   read: async (req, res) => {
     const data = await BlogPost.findOne({ _id: req.params.postId })
       .populate("category_name")
-      .populate("comments");
+      .populate("comments")
+      .populate("author");;
 
     res.status(200).send({
       error: false,

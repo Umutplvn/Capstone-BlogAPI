@@ -6,6 +6,7 @@ BLOG APP
 
 
 const router = require('express').Router()
+const permission=require('../middlewares/permissions')
 
 //! Call controller
 
@@ -13,7 +14,7 @@ const router = require('express').Router()
 
 router.route('/comment')
 .get(Comments.list)
-.post(Comments.create)
+.post(permission.isLogin, Comments.create)
 
 router.route('/comments/:commentId')
 .get(Comments.read)
