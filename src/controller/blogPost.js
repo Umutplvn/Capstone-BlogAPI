@@ -89,8 +89,6 @@ module.exports = {
       "comments"
     );
 
-    console.log("user", req.user);
-
     res.status(202).send({
       error: false,
       commentsCount: newData.comments.length,
@@ -100,13 +98,18 @@ module.exports = {
 
   pullComment: async (req, res) => {
     const user = req.user;
-    const author = req.body.author;
+    const blog = await BlogPost.findOne({ _id: req.params.postId }).populate(
+      "comments"
+    );
+    const commentFind = await blog.comments.filter(
+      (item) => item._id == req.body.commentId
+    );
 
     const commentId = req.body.commentId;
 
     let message = undefined;
 
-    if (user == author) {
+    if (commentFind[0].author == user) {
       const data = await BlogPost.updateOne(
         { _id: req.params.postId },
         { $pull: { comments: commentId } }
