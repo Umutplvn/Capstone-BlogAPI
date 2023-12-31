@@ -33,11 +33,13 @@ const UserSchema = new mongoose.Schema({
         set: (password) => passwordEncrypt(password)
     },
     image:{
-
+        type: String,
+        trim: true,
     },
 
     bio:{
-
+        type: String,
+        trim: true,
     },
 
     username: {
