@@ -13,6 +13,7 @@ const likeSchema= new mongoose.Schema({
         trim:true,
     }
 
+
 },{collection:'likes', timestamps:{createdAt:'publish_date', updatedAt:'update_date'}})
 
 module.exports= mongoose.model('Likes', likeSchema)

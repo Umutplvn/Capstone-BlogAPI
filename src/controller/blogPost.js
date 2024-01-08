@@ -12,12 +12,15 @@ const Likes = require("../models/likes");
 
 module.exports = {
   list: async (req, res) => {
+
     const data = await BlogPost.find()
       .populate("category_name")
       .populate("comments")
       .populate("author")
-      .populate("likes");
-    res.status(200).send({
+      .populate("likes")
+      .populate("likes_n")
+
+      res.status(200).send({
       error: false,
       count: data.length,
       result: data,

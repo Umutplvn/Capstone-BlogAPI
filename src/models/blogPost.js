@@ -6,6 +6,7 @@ BLOG APP
 
 const mongoose = require('mongoose')
 const commentModel=require('./comments')
+const likes = require('./likes')
 const blogPostSchema= new mongoose.Schema({
    
     title: {
@@ -26,10 +27,10 @@ const blogPostSchema= new mongoose.Schema({
     },
 
     category_name: {
-        type: mongoose.Schema.Types.ObjectId, // Relational ObjectId
-        ref: 'BlogCategory', // ModelName
-        // required: true,
-    },  
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'BlogCategory',
+        required: true,
+    },
 
     status:{
         type:String,
@@ -49,9 +50,14 @@ const blogPostSchema= new mongoose.Schema({
     likes:[{
         type: mongoose.Schema.Types.ObjectId,
         ref:"Likes"
-    }]
+    }],
 
+    likes_n:{
+        type: Number,
+        default: function(){ return this.likes.length }
+    }
 
 },{collection:'blogPost', timestamps:{createdAt:'publish_date', updatedAt:'update_date'}})
+
 
 module.exports= mongoose.model('BlogPost', blogPostSchema)
